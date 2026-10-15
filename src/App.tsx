@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, memo, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { m } from 'framer-motion';
 import Hero from './components/Hero';
@@ -16,6 +16,25 @@ import { VolumeIcon, VolumeOffIcon } from './components/Icons';
 // admin-only page: kept out of the guests' download
 const ResponsesPage = lazy(() => import('./components/ResponsesPage'));
 
+// the page itself; memoised so the gate, music and petal state changes never re-render it
+// (a full re-render mid-animation is what made the opening stutter)
+const SiteContent = memo(function SiteContent({ onBegin }: { onBegin: () => void }) {
+  return (
+    <>
+      <main>
+        <Hero onBegin={onBegin} />
+        <BigDay />
+        <KeyMoments />
+        <OurStory />
+        <Gallery />
+        <Location />
+        <Rsvp />
+      </main>
+      <Footer />
+    </>
+  );
+});
+
 function WeddingSite() {
   const [musicPlaying, setMusicPlaying] = useState(false);
   // gate-fold invitation first: the site waits far away behind it, zooms up to size, then the gate is gone
@@ -29,7 +48,8 @@ function WeddingSite() {
 
   const enterSite = () => {
     setGate('gone');
-    setPetals(true);
+    // a beat after the hand-off, so the page settling in and the first petals don't land on the same frame
+    window.setTimeout(() => setPetals(true), 400);
   };
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -49,7 +69,9 @@ function WeddingSite() {
     };
   }, []);
 
-  const playMusic = () => audioRef.current?.play().catch(() => setMusicPlaying(false));
+  const playMusic = useCallback(() => {
+    audioRef.current?.play().catch(() => setMusicPlaying(false));
+  }, []);
 
   const toggleMusic = () => {
     const audio = audioRef.current;
@@ -65,19 +87,10 @@ function WeddingSite() {
         className="site"
         data-gated={gate !== 'gone' || undefined}
         initial={false}
-        animate={gate === 'shown' ? { scale: 0.5, borderRadius: 22 } : { scale: 1, borderRadius: 0 }}
+        animate={{ scale: gate === 'shown' ? 0.5 : 1 }}
         transition={{ duration: ZOOM_S, ease: [0.55, 0, 0.3, 1] }}
       >
-        <main>
-          <Hero onBegin={playMusic} />
-          <BigDay />
-          <KeyMoments />
-          <OurStory />
-          <Gallery />
-          <Location />
-          <Rsvp />
-        </main>
-        <Footer />
+        <SiteContent onBegin={playMusic} />
       </m.div>
 
       {gate !== 'gone' && (

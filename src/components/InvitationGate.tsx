@@ -30,6 +30,7 @@ const HOLD_MS = 600;
 export const ZOOM_S = 2;
 
 const GATEFOLD = photoSrc('gatefold', 1024);
+const GATEFOLD_SOFT = photoSrc('gatefold', 64);
 
 const InvitationGate: React.FC<InvitationGateProps> = ({ onOpen, onZoom, onEnter }) => {
   const [stage, setStage] = useState<Stage>('closed');
@@ -93,7 +94,7 @@ const InvitationGate: React.FC<InvitationGateProps> = ({ onOpen, onZoom, onEnter
           role="dialog"
           aria-modal="true"
           aria-label={`Invitation from ${COUPLE.first} and ${COUPLE.second}`}
-          style={{ '--gatefold': `url(${GATEFOLD})` } as React.CSSProperties}
+          style={{ '--gatefold': `url(${GATEFOLD})`, '--gatefold-soft': `url(${GATEFOLD_SOFT})` } as React.CSSProperties}
           exit={{
             scale: 3.4,
             opacity: 0,

@@ -5,7 +5,7 @@
    photo is cut open, so the website itself shows through.
    Positions inside the 1024×1536 photo:
    card x 115–884 (seam at 510), y 202–1296
-   clasp (medallion + tassel) x 455–565, y 420–710
+   clasp (medallion + tassel) x 455–565, y 420–726
    ═══════════════════════════════════════════════════════ */
 
 .gate {
@@ -16,6 +16,9 @@
   z-index: 200;
   overflow: hidden;
   transform-origin: 50% 50%;
+  /* own compositor layer: the fly-through zoom only moves pixels, it never repaints */
+  will-change: transform, opacity;
+  contain: layout paint;
 }
 
 /* everything that is photo, with an arch-shaped opening where the card stands */
@@ -37,12 +40,14 @@
 /* the photo, blown up and softened, carries the scene out to both edges of the screen */
 .gate__backdrop {
   position: absolute;
-  inset: -60px;
+  inset: 0;
+  /* a 64px copy of the photo stretched to cover: the browser's smoothing gives the blur
+     for free (a CSS blur filter on a full-screen layer is very costly on phones) */
   background:
     radial-gradient(60% 80% at 50% 50%, rgba(7, 31, 26, 0) 40%, rgba(4, 18, 15, 0.55) 100%),
-    var(--gatefold) center 45% / cover no-repeat,
+    linear-gradient(rgba(6, 24, 20, 0.32), rgba(6, 24, 20, 0.32)),
+    var(--gatefold-soft) center 45% / cover no-repeat,
     #0A2620;
-  filter: blur(14px) brightness(0.72) saturate(1.1);
 }
 
 /* the photo and the card's doors share the same box, centred on screen */
@@ -77,6 +82,7 @@
   height: 71.224%;
   transform-style: preserve-3d;
   transition: transform 1.6s cubic-bezier(0.6, 0, 0.25, 1);
+  will-change: transform;
   z-index: 2;
 }
 .gate__door--left {
@@ -106,21 +112,27 @@
   background: var(--gatefold) 78.462% 45.701% / 273.8% 140.4% no-repeat;
 }
 
-/* plain card texture laid over the printed clasp, so the real clasp can fall away */
+/* plain card texture laid over the printed clasp, so the real clasp can fall away;
+   it only appears once the clasp has lifted, so the closed card is the untouched photo */
 .gate__door-patch {
   inset: auto;
   top: 19.927%;
-  height: 26.508%;
+  height: 27.971%;
+  opacity: 0;
+  transition: opacity 0.2s 0.15s;
 }
+.gate--unclasp .gate__door-patch,
+.gate--opening .gate__door-patch,
+.gate--open .gate__door-patch { opacity: 1; }
 .gate__door--left .gate__door-patch {
   left: 86.076%;
   width: 13.924%;
-  background: var(--gatefold) 40.248% 33.708% / 1861.8% 529.66% no-repeat;
+  background: var(--gatefold) 40.248% 34.146% / 1861.8% 501.96% no-repeat;
 }
 .gate__door--right .gate__door-patch {
   left: 0;
   width: 14.706%;
-  background: var(--gatefold) 59.855% 33.708% / 1861.8% 529.66% no-repeat;
+  background: var(--gatefold) 59.855% 34.146% / 1861.8% 501.96% no-repeat;
 }
 
 /* inside of each door: deep green with a gold lattice and border */
@@ -146,7 +158,7 @@
   left: 44.434%;
   top: 27.344%;
   width: 10.742%;
-  height: 18.88%;
+  height: 19.922%;
   transform-origin: 50% 8%;
   pointer-events: none;
 }
@@ -155,15 +167,15 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--gatefold) 49.781% 33.708% / 930.91% 529.66% no-repeat;
+  background: var(--gatefold) 49.781% 34.146% / 930.91% 501.96% no-repeat;
   -webkit-mask-image:
-    radial-gradient(50% 19.5% at 48% 20.7%, #000 88%, transparent 100%),
-    radial-gradient(9% 7% at 48% 44%, #000 80%, transparent 100%),
-    radial-gradient(31% 27% at 47% 73%, #000 82%, transparent 100%);
+    radial-gradient(50% 18% at 48% 19.6%, #000 88%, transparent 100%),
+    radial-gradient(9% 6% at 48% 41.2%, #000 80%, transparent 100%),
+    radial-gradient(31% 27.5% at 47% 72.5%, #000 84%, transparent 100%);
   mask-image:
-    radial-gradient(50% 19.5% at 48% 20.7%, #000 88%, transparent 100%),
-    radial-gradient(9% 7% at 48% 44%, #000 80%, transparent 100%),
-    radial-gradient(31% 27% at 47% 73%, #000 82%, transparent 100%);
+    radial-gradient(50% 18% at 48% 19.6%, #000 88%, transparent 100%),
+    radial-gradient(9% 6% at 48% 41.2%, #000 80%, transparent 100%),
+    radial-gradient(31% 27.5% at 47% 72.5%, #000 84%, transparent 100%);
 }
 .gate--closed .gate__clasp { animation: clasp-sway 4s ease-in-out infinite; }
 @keyframes clasp-sway {
@@ -175,10 +187,29 @@
 .gate--opening .gate__clasp,
 .gate--open .gate__clasp { animation: clasp-release 1.5s cubic-bezier(0.5, 0, 0.6, 1) forwards; }
 @keyframes clasp-release {
-  0% { transform: none; filter: none; }
-  22% { transform: scale(1.16) rotate(-4deg); filter: drop-shadow(0 0 12px rgba(255, 226, 160, 0.95)) brightness(1.2); }
-  40% { transform: scale(1.1) rotate(6deg); filter: drop-shadow(0 0 8px rgba(255, 226, 160, 0.7)) brightness(1.1); opacity: 1; }
-  100% { transform: translateY(140%) rotate(-22deg) scale(0.9); filter: none; opacity: 0; }
+  0% { transform: none; }
+  22% { transform: scale(1.16) rotate(-4deg); }
+  40% { transform: scale(1.1) rotate(6deg); opacity: 1; }
+  100% { transform: translateY(140%) rotate(-22deg) scale(0.9); opacity: 0; }
+}
+/* gold flash behind the medallion: a fixed gradient that only fades (no filters to repaint) */
+.gate__clasp::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -45%;
+  top: -18%;
+  width: 190%;
+  height: 80%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 230, 170, 0.75), rgba(255, 215, 140, 0.25) 55%, rgba(255, 215, 140, 0));
+  opacity: 0;
+}
+.gate--unclasp .gate__clasp::after { animation: clasp-flash 1s ease-out forwards; }
+@keyframes clasp-flash {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* the seam lights up from the clasp outward, like a zip coming undone */
@@ -221,10 +252,20 @@
 /* the pulsing glow is the focus indicator; a square outline would not follow the arch */
 .gate__tap:focus-visible { outline: none; }
 /* soft gold glow inviting the tap */
-.gate--closed .gate__tap { animation: gate-glow 2.6s var(--ease-soft) infinite; }
+/* the glow is drawn once and only its opacity pulses, so the idle card costs nothing */
+.gate__tap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 40px 6px rgba(240, 221, 175, 0.28);
+  opacity: 0;
+  pointer-events: none;
+}
+.gate--closed .gate__tap::after { animation: gate-glow 2.6s var(--ease-soft) infinite; }
 @keyframes gate-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(240, 221, 175, 0); }
-  50% { box-shadow: 0 0 40px 6px rgba(240, 221, 175, 0.28); }
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
 /* ── Skip ── */
@@ -261,5 +302,6 @@
   .gate--opening .gate__clasp,
   .gate--open .gate__clasp { opacity: 0; }
   .gate--unclasp .gate__zip { animation: none; }
-  .gate--closed .gate__tap { animation: none; }
+  .gate--closed .gate__tap::after { animation: none; }
+  .gate--unclasp .gate__clasp::after { animation: none; }
 }

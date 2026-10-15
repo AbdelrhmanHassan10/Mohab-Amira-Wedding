@@ -89,13 +89,15 @@ body {
 
 /* while the invitation gate is up, the site waits far away in the dark, one screen tall */
 html.is-gated,
-html.is-gated body { background: radial-gradient(60% 50% at 50% 50%, #164A3D, #071F1A 75%) fixed #071F1A; }
+html.is-gated body { background: radial-gradient(60% 50% at 50% 50%, #164A3D, #071F1A 75%) #071F1A; }
 .site { transform-origin: 50% 50%; }
 .site[data-gated] {
   height: 100vh;
   height: 100svh;
   overflow: hidden;
-  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+  border-radius: 22px;
+  /* one compositor layer for the zoom; nothing repaints while it scales */
+  will-change: transform;
 }
 
 h1, h2, h3 {

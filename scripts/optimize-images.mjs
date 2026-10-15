@@ -26,7 +26,7 @@ const photos = {
   'reception-hall': { file: 'reception-hall.jpg', widths: [480, 960] },
   'mosque-exterior': { file: 'mosque-exterior.png', widths: [640, 1280, 1537] },
   'mosque-interior': { file: 'mosque-interior.png', widths: [480, 960] },
-  gatefold: { file: 'gatefold.png', widths: [768, 1024], quality: 82 },
+  gatefold: { file: 'gatefold.png', widths: [64, 768, 1024], quality: 82 },
   childhood: { file: 'childhood.png', widths: [480, 960, 1145], quality: 80 },
   'garden-house': { file: 'garden-house.jpg', widths: [480, 960, 1600] },
 };
