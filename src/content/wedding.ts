@@ -11,7 +11,7 @@ export interface PhotoRef {
 }
 
 export const COUPLE = {
-  first: 'Mahab',
+  first: 'Mohab',
   second: 'Amira',
 };
 
@@ -62,17 +62,17 @@ export const STORY = {
     'Somewhere between the long talks and the easy silences, we realised we had found our person — someone to share the small moments and the big dreams with.',
     'Now we are ready to begin our next chapter, and there is no one we would rather celebrate it with than the people we love most.',
   ],
-  photo: { name: 'childhood', alt: 'Mahab and Amira as young children, hugging and smiling in a garden', position: '50% 35%' } satisfies PhotoRef,
+  photo: { name: 'childhood', alt: 'Mohab and Amira as young children, hugging and smiling in a garden', position: '50% 35%' } satisfies PhotoRef,
 };
 
 export const GALLERY: PhotoRef[] = [
   { name: 'bouquet-white', alt: 'A bouquet of ivory roses resting on a chair', position: '62% 50%' },
   { name: 'aisle-flowers', alt: 'A ceremony aisle lined with roses and garden chairs', position: '50% 50%' },
-  { name: 'couple-garden', alt: 'Mahab and Amira standing together in a garden archway', position: '50% 28%' },
+  { name: 'couple-garden', alt: 'Mohab and Amira standing together in a garden archway', position: '50% 28%' },
   { name: 'dusk-walk', alt: 'A bride and groom walking hand in hand at dusk', position: '58% 60%' },
   { name: 'golden-hour-bouquet', alt: 'A bridal bouquet glowing in golden-hour light', position: '50% 50%' },
   { name: 'rings-gold', alt: 'Two gold wedding rings on soft ivory fabric', position: '50% 55%' },
-  { name: 'couple-lanternlight', alt: 'Mahab and Amira sitting together by warm lanternlight', position: '55% 35%' },
+  { name: 'couple-lanternlight', alt: 'Mohab and Amira sitting together by warm lanternlight', position: '55% 35%' },
   { name: 'garden-house', alt: 'A house garden glowing with warm lights at dusk', position: '50% 55%' },
 ];
 

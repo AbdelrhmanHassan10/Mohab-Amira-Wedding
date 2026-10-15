@@ -24,7 +24,7 @@ const Hero: React.FC<HeroProps> = ({ onBegin }) => (
     <div className="hero__media">
       <Photo
         name="hero-couple"
-        alt="Mahab and Amira smiling together on a flower-framed, lantern-lit balcony overlooking the Nile at sunset"
+        alt="Mohab and Amira smiling together on a flower-framed, lantern-lit balcony overlooking the Nile at sunset"
         sizes="100vw"
         priority
         className="hero__photo"

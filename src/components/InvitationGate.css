@@ -4,8 +4,8 @@
    exactly over it, so they can swing open in 3D; behind them the
    photo is cut open, so the website itself shows through.
    Positions inside the 1024×1536 photo:
-   card x 124–896 (seam at 510), y 188–1288
-   clasp (medallion + tassel) x 455–565, y 420–690
+   card x 115–884 (seam at 510), y 202–1296
+   clasp (medallion + tassel) x 455–565, y 420–710
    ═══════════════════════════════════════════════════════ */
 
 .gate {
@@ -73,20 +73,20 @@
 /* ── Doors: halves of the card, cut from the same photo ── */
 .gate__door {
   position: absolute;
-  top: 12.24%;
-  height: 71.615%;
+  top: 13.151%;
+  height: 71.224%;
   transform-style: preserve-3d;
   transition: transform 1.6s cubic-bezier(0.6, 0, 0.25, 1);
   z-index: 2;
 }
 .gate__door--left {
-  left: 12.109%;
-  width: 37.695%;
+  left: 11.23%;
+  width: 38.574%;
   transform-origin: left center;
 }
 .gate__door--right {
   left: 49.805%;
-  width: 37.695%;
+  width: 36.523%;
   transform-origin: right center;
 }
 
@@ -100,27 +100,27 @@
 }
 /* background-size = 1 / slice size; position = offset / (1 - slice size) */
 .gate__door--left .gate__door-face {
-  background: var(--gatefold) 19.436% 43.119% / 265.28% 139.64% no-repeat;
+  background: var(--gatefold) 18.283% 45.701% / 259.24% 140.4% no-repeat;
 }
 .gate__door--right .gate__door-face {
-  background: var(--gatefold) 79.937% 43.119% / 265.28% 139.64% no-repeat;
+  background: var(--gatefold) 78.462% 45.701% / 273.8% 140.4% no-repeat;
 }
 
 /* plain card texture laid over the printed clasp, so the real clasp can fall away */
 .gate__door-patch {
   inset: auto;
-  top: 21.091%;
-  height: 24.545%;
+  top: 19.927%;
+  height: 26.508%;
 }
 .gate__door--left .gate__door-patch {
-  left: 85.751%;
-  width: 14.249%;
-  background: var(--gatefold) 39.216% 33.175% / 1861.8% 568.89% no-repeat;
+  left: 86.076%;
+  width: 13.924%;
+  background: var(--gatefold) 40.248% 33.708% / 1861.8% 529.66% no-repeat;
 }
 .gate__door--right .gate__door-patch {
   left: 0;
-  width: 14.249%;
-  background: var(--gatefold) 60.888% 33.175% / 1861.8% 568.89% no-repeat;
+  width: 14.706%;
+  background: var(--gatefold) 59.855% 33.708% / 1861.8% 529.66% no-repeat;
 }
 
 /* inside of each door: deep green with a gold lattice and border */
@@ -146,7 +146,7 @@
   left: 44.434%;
   top: 27.344%;
   width: 10.742%;
-  height: 17.578%;
+  height: 18.88%;
   transform-origin: 50% 8%;
   pointer-events: none;
 }
@@ -155,15 +155,15 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--gatefold) 49.781% 33.175% / 930.91% 568.89% no-repeat;
+  background: var(--gatefold) 49.781% 33.708% / 930.91% 529.66% no-repeat;
   -webkit-mask-image:
-    radial-gradient(50% 21% at 49% 22.5%, #000 88%, transparent 100%),
-    radial-gradient(9% 7% at 49% 44%, #000 80%, transparent 100%),
-    radial-gradient(31% 28% at 48% 73%, #000 82%, transparent 100%);
+    radial-gradient(50% 19.5% at 48% 20.7%, #000 88%, transparent 100%),
+    radial-gradient(9% 7% at 48% 44%, #000 80%, transparent 100%),
+    radial-gradient(31% 27% at 47% 73%, #000 82%, transparent 100%);
   mask-image:
-    radial-gradient(50% 21% at 49% 22.5%, #000 88%, transparent 100%),
-    radial-gradient(9% 7% at 49% 44%, #000 80%, transparent 100%),
-    radial-gradient(31% 28% at 48% 73%, #000 82%, transparent 100%);
+    radial-gradient(50% 19.5% at 48% 20.7%, #000 88%, transparent 100%),
+    radial-gradient(9% 7% at 48% 44%, #000 80%, transparent 100%),
+    radial-gradient(31% 27% at 47% 73%, #000 82%, transparent 100%);
 }
 .gate--closed .gate__clasp { animation: clasp-sway 4s ease-in-out infinite; }
 @keyframes clasp-sway {
@@ -186,14 +186,14 @@
   position: absolute;
   z-index: 2;
   left: calc(49.805% - 2px);
-  top: 12.24%;
+  top: 13.151%;
   width: 4px;
-  height: 71.615%;
+  height: 71.224%;
   border-radius: 4px;
   background: linear-gradient(180deg, rgba(255, 236, 190, 0), #FFE7B0 12%, #FFF6DE 50%, #FFE7B0 88%, rgba(255, 236, 190, 0));
   box-shadow: 0 0 12px 3px rgba(255, 220, 150, 0.8), 0 0 40px 8px rgba(255, 210, 130, 0.35);
   transform: scaleY(0);
-  transform-origin: 50% 26.5%;
+  transform-origin: 50% 25.4%;
   opacity: 0;
   pointer-events: none;
 }
@@ -209,10 +209,10 @@
 .gate__tap {
   position: absolute;
   z-index: 4;
-  left: 12.109%;
-  top: 12.24%;
-  width: 75.391%;
-  height: 71.615%;
+  left: 11.23%;
+  top: 13.151%;
+  width: 75.098%;
+  height: 71.224%;
   border-radius: 46% 46% 6px 6px / 12% 12% 6px 6px;
   cursor: pointer;
   --focus: #F0DDAF;

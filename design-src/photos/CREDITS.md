@@ -24,7 +24,7 @@ To swap a photo, replace the file here (keep the name) and run the script again.
 | mosque-exterior.png | Supplied by the couple ("الجامع_الكبير_بني_سويف(1).png"): The Grand Mosque, Beni Suef, at night |
 | mosque-interior.png | Supplied by the couple ("الجامع_الكبير_بني_سويف.png"): The Grand Mosque, Beni Suef, interior |
 | garden-house.jpg | Unsplash, free license: https://images.unsplash.com/photo-1600585154340-be6161a56a0c |
-| childhood.png | Supplied by the couple ("children_photo_enhanced.png"): Mahab and Amira as children; Our Story |
+| childhood.png | Supplied by the couple ("children_photo_enhanced.png"): Mohab and Amira as children; Our Story |
 | gatefold.png | Supplied by the couple ("Emerald Gold Wedding Invitation Gatefold.png"): opening gate-fold card |
 
 The Unsplash License allows free commercial and personal use without attribution.
