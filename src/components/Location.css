@@ -1,0 +1,126 @@
+/* ═══════════════════════════════════════════════════════
+   LOCATION — framed venue photo with an organic corner
+   ═══════════════════════════════════════════════════════ */
+
+.location {
+  position: relative;
+  padding-block: clamp(2rem, 4vw, 3rem) calc(var(--section-y) + var(--wave-h) * 0.5);
+  background: var(--ivory);
+}
+
+.location__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5.5rem);
+  align-items: center;
+}
+
+.location__media {
+  position: relative;
+  isolation: isolate;
+}
+
+/* thin gold frame offset behind the photo */
+.location__media::before {
+  content: '';
+  position: absolute;
+  inset: 18px -18px -18px 18px;
+  z-index: -1;
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius-lg) 160px var(--radius-lg) var(--radius-lg);
+}
+
+.location__media img {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  border-radius: var(--radius-lg) 160px var(--radius-lg) var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.location__text { position: relative; }
+
+.location__title {
+  margin-top: 0.8rem;
+  font-size: clamp(2.2rem, 4vw, 3.1rem);
+  line-height: 1.05;
+}
+.location__title span {
+  display: block;
+  margin-top: 0.15rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--emerald-soft);
+}
+
+/* two places: marriage contract and wedding celebration */
+.location__places {
+  list-style: none;
+  display: grid;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--line-light);
+  max-width: 30rem;
+}
+
+.place {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 1rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--line-light);
+}
+.place__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--gold);
+}
+.place__icon svg { width: 22px; height: 22px; }
+
+.place__event {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+.place__venue {
+  margin-top: 0.2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
+.place__line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.place__line svg { width: 15px; height: 15px; margin-top: 0.2rem; flex-shrink: 0; color: var(--gold-text); }
+.place__link { margin-top: 0.35rem; margin-bottom: -0.5rem; }
+.place__note { font-size: 0.8rem; color: var(--ink-soft); }
+
+.location__sprig {
+  position: absolute;
+  right: 0;
+  top: -1rem;
+  width: 70px;
+  opacity: 0.6;
+  transform: rotate(20deg);
+}
+
+@media (max-width: 860px) {
+  .location__inner { grid-template-columns: 1fr; max-width: 640px; }
+  .location__media img,
+  .location__media::before { border-radius: var(--radius-lg) 96px var(--radius-lg) var(--radius-lg); }
+  .location__media::before { inset: 12px -10px -12px 10px; }
+  .location__text { text-align: center; }
+  .location__places { margin-inline: auto; text-align: left; }
+  .location__sprig { display: none; }
+}

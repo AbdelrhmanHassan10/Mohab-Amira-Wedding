@@ -1,0 +1,222 @@
+.final-invitation {
+  position: relative;
+  width: min(92vw, 420px);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: #faf7f4;
+  box-shadow: 0 12px 40px rgba(56, 35, 80, 0.15);
+}
+
+.zooming-cover.final-invitation {
+  border: none;
+  box-shadow: none;
+  width: 100%;
+}
+
+.final-invitation {
+  container-type: inline-size;
+}
+
+.final-invitation::before {
+  display: none;
+}
+
+.invitation-board-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url('/opening.webp');
+  background-size: 120% 120%;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+
+.invitation-letter-frame {
+  position: relative;
+  z-index: 3;
+  /* sits inside the inner frame drawn in opening.png (~60% x 61% of the card) */
+  width: 54%;
+  height: 58%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  text-align: center;
+  color: #382350; /* Purple text */
+}
+
+.final-invitation-eyebrow {
+  margin: 0 0 4cqi;
+  color: #7b7e91;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.7cqi;
+  line-height: 1.7;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.final-invitation-names {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.final-invitation-names.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.final-invitation-names h1 {
+  margin: 0;
+  color: #382350;
+  font-family: 'Great Vibes', cursive;
+  font-size: 12.5cqi;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 0.85;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.final-invitation-names.is-visible .final-name-mahmoud {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.25s;
+}
+
+.final-invitation-names.is-visible .final-name-salma {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.65s;
+}
+
+.final-invitation-ampersand {
+  margin: -0.5cqi 0;
+  color: #75809d;
+  font-family: 'Great Vibes', cursive;
+  font-size: 7cqi;
+  line-height: 1;
+}
+
+.final-invitation-divider {
+  display: flex;
+  align-items: center;
+  gap: 3cqi;
+  margin: 3cqi 0 3.5cqi;
+  font-size: 2.8cqi;
+  color: #A88955;
+}
+
+.final-invitation-divider span {
+  width: 8cqi;
+  height: 1px;
+  background: #A88955;
+}
+
+.final-invitation-date {
+  margin: 0;
+  color: #5d4872;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.3cqi;
+  letter-spacing: 0.25em;
+  font-weight: 600;
+}
+
+.final-invitation-location {
+  margin: 1.5cqi 0 0;
+  color: #7b688f;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.8cqi;
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+.final-invitation-scroll-hint {
+  margin-top: 4cqi;
+  padding: 1cqi 3cqi;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: #A88955;
+  font-size: 3.6cqi;
+  line-height: 0;
+  cursor: pointer;
+  animation: scroll-hint-bounce 1.8s ease-in-out infinite;
+}
+
+.final-invitation-scroll-hint svg + svg {
+  margin-top: -1.6cqi;
+  opacity: 0.55;
+}
+
+@keyframes scroll-hint-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(1.6cqi); opacity: 1; }
+}
+
+.final-invitation-scroll {
+  margin-top: 5cqi;
+  padding: 0.9em 1.8em;
+  white-space: nowrap;
+  border: 1px solid #C5A059;
+  border-radius: 30px;
+  background: rgba(197, 160, 89, 0.05);
+  color: #382350;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.6cqi;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.final-invitation-scroll:hover {
+  background: rgba(197, 160, 89, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.15);
+}
+
+
+/* Phones: the card is taller than the artwork (full screen), so the artwork keeps its
+   proportions (sized by width) and the paper colour of its edges fills above and below.
+   Applies to the card inside the envelope too, so both look identical at the handoff. */
+@media (max-width: 600px) {
+  .final-invitation {
+    background: #f8f0e7;
+  }
+
+  .invitation-board-bg {
+    background-size: 120% auto;
+  }
+
+  .invitation-letter-frame {
+    /* inner frame of opening.png at this size, same 93% fill as on larger screens */
+    height: 86cqi;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-invitation,
+  .final-invitation-names,
+  .final-invitation-names h1 {
+    transition-duration: 0.01ms !important;
+  }
+
+  .final-invitation-scroll-hint {
+    animation: none;
+  }
+}

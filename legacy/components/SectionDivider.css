@@ -1,0 +1,61 @@
+.section-divider {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: min(640px, 86%);
+  margin: 0 auto;
+  padding: 0.5rem 0;
+}
+
+.section-divider-line {
+  flex: 1;
+  height: 1px;
+}
+
+/* each hairline is solid gold at the ornament and fades out towards the page edge */
+.section-divider-line.is-left {
+  background: linear-gradient(to right, rgba(197, 160, 89, 0), #C5A059);
+  transform-origin: right center;
+}
+
+.section-divider-line.is-right {
+  background: linear-gradient(to left, rgba(197, 160, 89, 0), #C5A059);
+  transform-origin: left center;
+}
+
+.section-divider-ornament {
+  flex: none;
+  width: 140px;
+  height: 28px;
+  overflow: visible;
+}
+
+.ornament-gold-stroke {
+  fill: none;
+  stroke: #C5A059;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+
+.ornament-gold-fill {
+  fill: #C5A059;
+}
+
+.ornament-heart {
+  fill: #5b3d7a;
+}
+
+@media (max-width: 600px) {
+  .section-divider {
+    width: 92%;
+    gap: 8px;
+  }
+
+  .section-divider-ornament {
+    width: 110px;
+    height: 22px;
+  }
+}

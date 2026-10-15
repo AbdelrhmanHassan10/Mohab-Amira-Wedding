@@ -1,0 +1,440 @@
+/* ========================================
+   EVENTS SECTION - Premium Wedding Style
+   Matching reference design exactly
+   ======================================== */
+
+.events-section {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  padding: 5rem 4rem;
+  z-index: 10;
+  overflow: hidden;
+}
+
+
+
+.events-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.1) 0%,
+    rgba(255,255,255,0) 50%,
+    rgba(255,255,255,0.1) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Container */
+.events-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.events-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ========== HEADER ========== */
+.events-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.events-subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: #382350;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.events-subtitle::before,
+.events-subtitle::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: rgba(56, 35, 80, 0.3);
+}
+
+.events-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  color: #382350;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.events-title-cursive {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.4rem;
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* ========== CARDS WRAPPER ========== */
+.events-cards-wrapper {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+/* ========== EVENT CARD ========== */
+.event-card {
+  position: relative;
+  width: 340px;
+  /* Warm cream/marble background */
+  background-image: url('/cart-bg.webp');
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  box-shadow: 
+    0 15px 45px rgba(56, 35, 80, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: transform 0.4s ease;
+  /* Gold border - clearly visible */
+  overflow: visible;
+}
+
+/* Lift on hover (mouse only): transform is cheap to animate, unlike box-shadow */
+@media (hover: hover) {
+  .event-card:hover {
+    transform: translateY(-8px);
+  }
+}
+
+/* Inner gold line (double border effect) */
+.event-card::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ========== CORNER FLOWER DECORATIONS ========== */
+.card-corner-flower {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  background-size: 400% auto;
+  background-repeat: no-repeat;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.85;
+  filter: saturate(1.4) contrast(1.1);
+}
+
+.corner-flower-tl {
+  top: -25px;
+  left: -25px;
+  background-position: 35% 40%;
+  -webkit-mask-image: radial-gradient(circle at top left, black 35%, transparent 75%);
+  mask-image: radial-gradient(circle at top left, black 35%, transparent 75%);
+}
+
+.corner-flower-tr {
+  top: -25px;
+  right: -25px;
+  background-position: 65% 40%;
+  -webkit-mask-image: radial-gradient(circle at top right, black 35%, transparent 75%);
+  mask-image: radial-gradient(circle at top right, black 35%, transparent 75%);
+  transform: scaleX(-1);
+}
+
+.corner-flower-bl {
+  bottom: -25px;
+  left: -25px;
+  background-position: 35% 60%;
+  -webkit-mask-image: radial-gradient(circle at bottom left, black 35%, transparent 75%);
+  mask-image: radial-gradient(circle at bottom left, black 35%, transparent 75%);
+  transform: scaleY(-1);
+}
+
+.corner-flower-br {
+  bottom: -25px;
+  right: -25px;
+  background-position: 65% 60%;
+  -webkit-mask-image: radial-gradient(circle at bottom right, black 35%, transparent 75%);
+  mask-image: radial-gradient(circle at bottom right, black 35%, transparent 75%);
+  transform: scale(-1);
+}
+
+/* ========== CARD INNER ========== */
+.event-card-inner {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.8rem 2rem 2.2rem;
+  text-align: center;
+}
+
+/* ========== CUSTOM ICON FROM 2.PNG ========== */
+.event-icon-custom {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  background-image: url('/2.webp');
+  background-repeat: no-repeat;
+  /* Use 'auto' for height to prevent any distortion/stretching of the circles */
+  background-size: 460% auto;
+  box-shadow: 0 5px 15px rgba(197, 160, 89, 0.15);
+  background-color: #fff;
+}
+
+/* Swapped icons and perfectly centered based on 450% scaling */
+.engagement-icon {
+  background-position: 73% center; /* Mosque */
+}
+
+.wedding-icon {
+  background-position: 27% center; /* Rings */
+}
+
+/* ========== CARD TITLE ========== */
+.event-card-inner h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: #382350;
+  font-weight: 600;
+  font-style: italic;
+  margin: 0 0 0.6rem 0;
+  letter-spacing: 0.03em;
+}
+
+/* ========== DECORATIVE DIVIDER ========== */
+.card-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.2rem;
+}
+
+.divider-line {
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: rgba(56, 35, 80, 0.2);
+}
+
+.divider-dot {
+  font-size: 0.6rem;
+  color: #9C84B3;
+  line-height: 1;
+}
+
+/* ========== INFO LIST ========== */
+.event-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.event-info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  color: #382350;
+  opacity: 0.9;
+}
+
+.event-info-row span {
+  font-weight: 500;
+}
+
+/* ========== MAP BUTTON ========== */
+.event-map-btn {
+  align-self: center;
+  justify-content: center;
+  margin-top: 1.3rem;
+  background: transparent;
+  color: #382350;
+  border: 1px solid rgba(197, 160, 89, 0.55);
+  border-radius: 30px;
+  padding: 11px 28px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.event-map-btn:hover {
+  background: rgba(78, 56, 101, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(56, 35, 80, 0.12);
+}
+
+.btn-arrow {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.event-map-btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* ========== RIGHT: ARCH IMAGE ========== */
+.events-right {
+  flex: 0 1 420px;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.arch-image-wrapper {
+  position: relative;
+  width: min(100%, 420px);
+  aspect-ratio: 1072 / 1467;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 20px 40px rgba(56, 35, 80, 0.2));
+}
+
+.board-photo {
+  position: absolute;
+  top: 11.11%;
+  left: 10.17%;
+  width: 78.92%;
+  height: 68.71%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
+}
+
+/* Celebrate badge */
+.arch-badge {
+  position: absolute;
+  bottom: 9%;
+  left: 50%;
+  transform: translateX(-50%);
+  right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(8px, 1.1vw, 12px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #382350;
+  background: transparent;
+  width: fit-content;
+  max-width: 78%;
+  padding: 8px 6px;
+  border: 0;
+  box-shadow: none;
+  white-space: nowrap;
+  z-index: 5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.arch-badge:hover {
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.arch-badge .btn-arrow {
+  font-size: 1em;
+  transition: transform 0.3s ease;
+}
+
+.arch-badge:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1100px) {
+  .events-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .events-right {
+    flex: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .events-cards-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .events-section {
+    padding: 3.5rem 1.5rem;
+  }
+
+  .events-title {
+    font-size: 2rem;
+  }
+
+  .events-title-cursive {
+    font-size: 2.6rem;
+  }
+
+  .event-card {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .card-corner-flower {
+    width: 80px;
+    height: 80px;
+  }
+}

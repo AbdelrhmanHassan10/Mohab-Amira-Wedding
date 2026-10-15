@@ -1,0 +1,186 @@
+/* ═══════════════════════════════════════════════════════
+   GALLERY — one endlessly gliding row,
+   varied frame shapes, gold inner frames, faded edges
+   ═══════════════════════════════════════════════════════ */
+
+.gallery {
+  position: relative;
+  padding-block: calc(var(--wave-h) + clamp(2.5rem, 5vw, 4rem)) clamp(3rem, 6vw, 5rem);
+  background: var(--ivory);
+  overflow-x: clip;
+}
+
+.marquee {
+  --row-h: clamp(230px, 24vw, 340px);
+  --gap: clamp(12px, 1.3vw, 18px);
+  display: grid;
+  gap: var(--gap);
+  margin-top: clamp(2.25rem, 4vw, 3rem);
+  /* photos fade in and out at the screen edges */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+
+.marquee__row { overflow: hidden; padding-block: 8px; }
+
+.marquee__track {
+  list-style: none;
+  display: flex;
+  width: max-content;
+  animation: marquee-left 70s linear infinite;
+  will-change: transform;
+}
+
+/* slide exactly one of the three copies, then repeat */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% / 3)); }
+}
+
+/* pause while hovering, focusing, viewing a photo, or when the visitor pauses it */
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track,
+.marquee.is-paused .marquee__track { animation-play-state: paused; }
+
+/* spacing via padding (not flex gap) so one copy is exactly a third of the track;
+   width = photo width (row height × shape ratio) + that spacing */
+.marquee__item {
+  flex: none;
+  height: var(--row-h);
+  width: calc(var(--row-h) * var(--ar, 1) + var(--gap));
+  padding-right: var(--gap);
+}
+.marquee__item--portrait { --ar: 0.8; }
+.marquee__item--landscape { --ar: 1.5; }
+.marquee__item--square { --ar: 1; }
+
+.marquee__open {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--cream);
+  box-shadow: 0 16px 34px -22px rgba(13, 48, 41, 0.6);
+  cursor: zoom-in;
+  transition: transform 0.6s var(--ease-soft), box-shadow 0.6s var(--ease-soft);
+}
+.marquee__open img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-soft), filter 0.6s var(--ease-soft);
+}
+
+/* gold inner frame, as on the other photo sections */
+.marquee__open::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  z-index: 1;
+  border: 1px solid rgba(248, 244, 235, 0.7);
+  border-radius: 14px;
+  pointer-events: none;
+  transition: border-color 0.5s var(--ease-soft), inset 0.5s var(--ease-soft);
+}
+/* soft green wash that appears on hover */
+.marquee__open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13, 48, 41, 0) 40%, rgba(13, 48, 41, 0.55) 100%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-soft);
+}
+
+.marquee__zoom {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--forest);
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  transition: opacity 0.4s var(--ease-soft), transform 0.4s var(--ease-soft);
+}
+.marquee__zoom svg { width: 17px; height: 17px; }
+
+.marquee__open:hover,
+.marquee__open:focus-visible {
+  transform: translateY(-5px);
+  box-shadow: 0 26px 44px -24px rgba(13, 48, 41, 0.7);
+}
+.marquee__open:hover img,
+.marquee__open:focus-visible img { transform: scale(1.07); }
+.marquee__open:hover::before,
+.marquee__open:focus-visible::before { border-color: rgba(198, 166, 106, 0.95); inset: 10px; }
+.marquee__open:hover::after,
+.marquee__open:focus-visible::after { opacity: 1; }
+.marquee__open:hover .marquee__zoom,
+.marquee__open:focus-visible .marquee__zoom { opacity: 1; transform: none; }
+
+/* ── Pause / play: small gold-ringed icon between two fine lines ── */
+.gallery__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 1.75rem;
+}
+.gallery__controls::before,
+.gallery__controls::after {
+  content: '';
+  width: clamp(48px, 9vw, 110px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.gallery__controls::after { background: linear-gradient(90deg, var(--gold), transparent); }
+
+.gallery__toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(198, 166, 106, 0.75);
+  color: var(--forest);
+  background: var(--paper);
+  box-shadow: 0 0 0 4px var(--ivory), 0 0 0 5px rgba(198, 166, 106, 0.25);
+  transition: background-color var(--dur-fast), color var(--dur-fast), transform var(--dur-fast) var(--ease-soft);
+}
+.gallery__toggle svg { width: 15px; height: 15px; }
+.gallery__toggle.is-paused svg { margin-left: 2px; } /* optical centring of the play triangle */
+.gallery__toggle:hover {
+  background: var(--forest);
+  color: var(--gold);
+  transform: scale(1.06);
+}
+
+@media (max-width: 600px) {
+  .marquee {
+    --row-h: clamp(170px, 48vw, 210px);
+    --gap: 10px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  }
+  .marquee__open { border-radius: 16px; }
+  .marquee__open::before { inset: 6px; border-radius: 11px; }
+  .marquee__track { animation-duration: 55s; }
+}
+
+/* reduced motion: no movement — a still strip you can swipe through */
+@media (prefers-reduced-motion: reduce) {
+  .marquee { -webkit-mask-image: none; mask-image: none; }
+  .marquee__row { overflow-x: auto; scrollbar-width: none; padding-inline: var(--gutter); }
+  .marquee__track { animation: none !important; }
+  .marquee__item[aria-hidden='true'] { display: none; }
+  .gallery__controls { display: none; }
+}

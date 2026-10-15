@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "rsvps": {
+      ".read": "auth != null && auth.token.email == 'mohab@gmail.com'",
+      "$id": {
+        ".write": "!data.exists()",
+        ".validate": "newData.hasChildren(['name', 'attending', 'createdAt'])",
+        "name": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100" },
+        "attending": { ".validate": "newData.val() == 'yes' || newData.val() == 'no'" },
+        "message": { ".validate": "newData.isString() && newData.val().length <= 1000" },
+        "createdAt": { ".validate": "newData.val() == now" },
+        "$other": { ".validate": false }
+      }
+    }
+  }
+}

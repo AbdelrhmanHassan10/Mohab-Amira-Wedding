@@ -1,0 +1,80 @@
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: clamp(4rem, 8vh, 5rem) clamp(1rem, 7vw, 6rem);
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 30, 25, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.lightbox__figure {
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+  justify-items: center;
+  max-width: min(1100px, 100%);
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.lightbox__frame img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100svh - 11rem);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8);
+}
+
+.lightbox__caption {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  width: 100%;
+  font-size: var(--text-sm);
+  color: var(--on-dark-soft);
+}
+.lightbox__count {
+  flex-shrink: 0;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+
+.lightbox__btn {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(198, 166, 106, 0.6);
+  color: var(--ivory);
+  background: rgba(13, 48, 41, 0.6);
+  transition: background-color var(--dur-fast), color var(--dur-fast);
+}
+.lightbox__btn svg { width: 20px; height: 20px; }
+.lightbox__btn:hover { background: var(--gold); color: var(--forest); }
+
+.lightbox__close { top: max(1rem, env(safe-area-inset-top)); right: 1rem; }
+.lightbox__nav { top: 50%; transform: translateY(-50%); }
+.lightbox__nav--prev { left: clamp(0.5rem, 2vw, 2rem); }
+.lightbox__nav--next { right: clamp(0.5rem, 2vw, 2rem); }
+
+@media (max-width: 600px) {
+  .lightbox { padding-inline: 0.75rem; }
+  .lightbox__nav { top: auto; bottom: max(1rem, env(safe-area-inset-bottom)); transform: none; }
+  .lightbox__nav--prev { left: calc(50% - 60px); }
+  .lightbox__nav--next { right: calc(50% - 60px); }
+  .lightbox__frame img { max-height: calc(100svh - 13rem); }
+  .lightbox__caption { padding-inline: 0.25rem; }
+}

@@ -1,0 +1,266 @@
+/* ═══════════════════════════════════════════════════════
+   HERO — Cinematic full-bleed with sunset couple
+   ═══════════════════════════════════════════════════════ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ── Background ── */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(13, 48, 41, 0.82) 0%,
+    rgba(13, 48, 41, 0.55) 40%,
+    rgba(13, 48, 41, 0.25) 70%,
+    rgba(13, 48, 41, 0.10) 100%
+  );
+}
+
+/* ── Floral SVGs ── */
+.hero-floral {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  width: clamp(80px, 12vw, 160px);
+}
+
+.hero-floral--left {
+  left: 0;
+  bottom: 10%;
+  transform: rotate(15deg);
+}
+
+.hero-floral--right {
+  right: 0;
+  top: 5%;
+  transform: rotate(-10deg);
+}
+
+/* ── Content ── */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 8rem var(--section-px) 6rem;
+}
+
+.hero-left {
+  max-width: 560px;
+}
+
+/* Eyebrow */
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: clamp(0.6rem, 1.2vw, 0.72rem);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+.hero-eyebrow span {
+  color: var(--gold-light);
+}
+
+/* Names */
+.hero-names {
+  margin-bottom: 1.5rem;
+}
+
+.hero-name {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+}
+
+.hero-name--groom {
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  letter-spacing: 0.06em;
+}
+
+.hero-name--bride {
+  font-size: clamp(3rem, 8vw, 6rem);
+  letter-spacing: 0.06em;
+  margin-left: 0.5em;
+}
+
+.hero-and {
+  display: block;
+  font-family: var(--font-script);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--gold);
+  margin: 0.2em 0 0.15em 0.3em;
+}
+
+/* Tagline */
+.hero-tagline {
+  font-family: var(--font-sans);
+  font-size: clamp(0.62rem, 1vw, 0.7rem);
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 2;
+  margin-bottom: 2rem;
+}
+
+/* Date row */
+.hero-date-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2.5rem;
+  padding: 0.8rem 1.2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(198, 166, 106, 0.25);
+  border-radius: 6px;
+  max-width: fit-content;
+}
+
+.hero-date-icon {
+  color: var(--gold);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.hero-date-main {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--white);
+}
+
+.hero-date-sub {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.15rem;
+}
+
+/* CTA */
+.hero-cta {
+  background: var(--gold);
+  color: var(--forest);
+  border-color: var(--gold);
+}
+
+.hero-cta::before {
+  background: var(--white);
+}
+
+/* Right column */
+.hero-right {
+  text-align: right;
+}
+
+.hero-script {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--gold-light);
+  line-height: 1.3;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Bottom Curve ── */
+.hero-curve {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  line-height: 0;
+}
+
+.hero-curve svg {
+  display: block;
+  width: 100%;
+  height: clamp(40px, 6vw, 80px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 6rem;
+    padding-bottom: 5rem;
+  }
+
+  .hero-left {
+    max-width: 100%;
+  }
+
+  .hero-name--bride {
+    margin-left: 0;
+  }
+
+  .hero-and {
+    margin-left: 0;
+  }
+
+  .hero-date-row {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta {
+    margin: 0 auto;
+  }
+
+  .hero-right {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(13, 48, 41, 0.75) 0%,
+      rgba(13, 48, 41, 0.50) 50%,
+      rgba(13, 48, 41, 0.70) 100%
+    );
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-content {
+    padding-top: 5rem;
+    padding-bottom: 4rem;
+  }
+  
+  .hero-floral {
+    display: none;
+  }
+}

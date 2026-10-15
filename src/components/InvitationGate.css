@@ -1,0 +1,265 @@
+/* ═══════════════════════════════════════════════════════
+   INVITATION GATE — the couple's gate-fold card photo.
+   The card's two halves are cut from the same image and laid
+   exactly over it, so they can swing open in 3D; behind them the
+   photo is cut open, so the website itself shows through.
+   Positions inside the 1024×1536 photo:
+   card x 124–896 (seam at 510), y 188–1288
+   clasp (medallion + tassel) x 455–565, y 420–690
+   ═══════════════════════════════════════════════════════ */
+
+.gate {
+  /* scene = the photo; the card fills ~88% of the screen height, or the phone's width */
+  --scene-w: min(82svh, 124vw);
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow: hidden;
+  transform-origin: 50% 50%;
+}
+
+/* everything that is photo, with an arch-shaped opening where the card stands */
+.gate__surface {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M2 99V9C12 8 28 5.5 40 3C45 2 48 1.5 50 1.5C52 1.5 55 2 60 3C72 5.5 88 8 98 9V99Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M2 99V9C12 8 28 5.5 40 3C45 2 48 1.5 50 1.5C52 1.5 55 2 60 3C72 5.5 88 8 98 9V99Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
+  -webkit-mask-size: var(--hole-w, 0) var(--hole-h, 0), 100% 100%;
+  mask-size: var(--hole-w, 0) var(--hole-h, 0), 100% 100%;
+  -webkit-mask-position: var(--hole-x, 0) var(--hole-y, 0), 0 0;
+  mask-position: var(--hole-x, 0) var(--hole-y, 0), 0 0;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* the photo, blown up and softened, carries the scene out to both edges of the screen */
+.gate__backdrop {
+  position: absolute;
+  inset: -60px;
+  background:
+    radial-gradient(60% 80% at 50% 50%, rgba(7, 31, 26, 0) 40%, rgba(4, 18, 15, 0.55) 100%),
+    var(--gatefold) center 45% / cover no-repeat,
+    #0A2620;
+  filter: blur(14px) brightness(0.72) saturate(1.1);
+}
+
+/* the photo and the card's doors share the same box, centred on screen */
+.gate__photo,
+.gate__scene {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--scene-w);
+  aspect-ratio: 1024 / 1536;
+  margin-left: calc(var(--scene-w) / -2);
+  margin-top: calc(var(--scene-w) * -0.75);
+}
+.gate__photo {
+  background: var(--gatefold) center / 100% 100% no-repeat;
+  /* long, soft fade into the backdrop so no edge shows */
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 18%, #000 82%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 18%, #000 82%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.gate__scene { perspective: 1600px; }
+
+/* ── Doors: halves of the card, cut from the same photo ── */
+.gate__door {
+  position: absolute;
+  top: 12.24%;
+  height: 71.615%;
+  transform-style: preserve-3d;
+  transition: transform 1.6s cubic-bezier(0.6, 0, 0.25, 1);
+  z-index: 2;
+}
+.gate__door--left {
+  left: 12.109%;
+  width: 37.695%;
+  transform-origin: left center;
+}
+.gate__door--right {
+  left: 49.805%;
+  width: 37.695%;
+  transform-origin: right center;
+}
+
+.gate__door-face,
+.gate__door-patch,
+.gate__door-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* background-size = 1 / slice size; position = offset / (1 - slice size) */
+.gate__door--left .gate__door-face {
+  background: var(--gatefold) 19.436% 43.119% / 265.28% 139.64% no-repeat;
+}
+.gate__door--right .gate__door-face {
+  background: var(--gatefold) 79.937% 43.119% / 265.28% 139.64% no-repeat;
+}
+
+/* plain card texture laid over the printed clasp, so the real clasp can fall away */
+.gate__door-patch {
+  inset: auto;
+  top: 21.091%;
+  height: 24.545%;
+}
+.gate__door--left .gate__door-patch {
+  left: 85.751%;
+  width: 14.249%;
+  background: var(--gatefold) 39.216% 33.175% / 1861.8% 568.89% no-repeat;
+}
+.gate__door--right .gate__door-patch {
+  left: 0;
+  width: 14.249%;
+  background: var(--gatefold) 60.888% 33.175% / 1861.8% 568.89% no-repeat;
+}
+
+/* inside of each door: deep green with a gold lattice and border */
+.gate__door-back {
+  transform: rotateY(180deg);
+  background:
+    repeating-linear-gradient(45deg, rgba(198, 166, 106, 0.3) 0 1px, transparent 1px 14px),
+    repeating-linear-gradient(-45deg, rgba(198, 166, 106, 0.3) 0 1px, transparent 1px 14px),
+    linear-gradient(180deg, #154236, #0D3029);
+  border: 2px solid #C6A66A;
+  border-radius: 40% 40% 6px 6px / 10% 10% 6px 6px;
+}
+
+.gate--opening .gate__door--left,
+.gate--open .gate__door--left { transform: rotateY(-108deg); }
+.gate--opening .gate__door--right,
+.gate--open .gate__door--right { transform: rotateY(108deg); }
+
+/* ── The clasp: medallion and tassel cut from the photo ── */
+.gate__clasp {
+  position: absolute;
+  z-index: 3;
+  left: 44.434%;
+  top: 27.344%;
+  width: 10.742%;
+  height: 17.578%;
+  transform-origin: 50% 8%;
+  pointer-events: none;
+}
+/* only the medallion and the tassel, so the glow follows their shape */
+.gate__clasp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gatefold) 49.781% 33.175% / 930.91% 568.89% no-repeat;
+  -webkit-mask-image:
+    radial-gradient(50% 21% at 49% 22.5%, #000 88%, transparent 100%),
+    radial-gradient(9% 7% at 49% 44%, #000 80%, transparent 100%),
+    radial-gradient(31% 28% at 48% 73%, #000 82%, transparent 100%);
+  mask-image:
+    radial-gradient(50% 21% at 49% 22.5%, #000 88%, transparent 100%),
+    radial-gradient(9% 7% at 49% 44%, #000 80%, transparent 100%),
+    radial-gradient(31% 28% at 48% 73%, #000 82%, transparent 100%);
+}
+.gate--closed .gate__clasp { animation: clasp-sway 4s ease-in-out infinite; }
+@keyframes clasp-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.6deg); }
+}
+/* pops with a flash of gold, then drops away from the seam */
+.gate--unclasp .gate__clasp,
+.gate--opening .gate__clasp,
+.gate--open .gate__clasp { animation: clasp-release 1.5s cubic-bezier(0.5, 0, 0.6, 1) forwards; }
+@keyframes clasp-release {
+  0% { transform: none; filter: none; }
+  22% { transform: scale(1.16) rotate(-4deg); filter: drop-shadow(0 0 12px rgba(255, 226, 160, 0.95)) brightness(1.2); }
+  40% { transform: scale(1.1) rotate(6deg); filter: drop-shadow(0 0 8px rgba(255, 226, 160, 0.7)) brightness(1.1); opacity: 1; }
+  100% { transform: translateY(140%) rotate(-22deg) scale(0.9); filter: none; opacity: 0; }
+}
+
+/* the seam lights up from the clasp outward, like a zip coming undone */
+.gate__zip {
+  position: absolute;
+  z-index: 2;
+  left: calc(49.805% - 2px);
+  top: 12.24%;
+  width: 4px;
+  height: 71.615%;
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(255, 236, 190, 0), #FFE7B0 12%, #FFF6DE 50%, #FFE7B0 88%, rgba(255, 236, 190, 0));
+  box-shadow: 0 0 12px 3px rgba(255, 220, 150, 0.8), 0 0 40px 8px rgba(255, 210, 130, 0.35);
+  transform: scaleY(0);
+  transform-origin: 50% 26.5%;
+  opacity: 0;
+  pointer-events: none;
+}
+.gate--unclasp .gate__zip { animation: zip-open 0.9s cubic-bezier(0.3, 0, 0.2, 1) 0.2s forwards; }
+.gate--opening .gate__zip { opacity: 0; transform: scaleY(1); transition: opacity 0.5s; }
+@keyframes zip-open {
+  0% { transform: scaleY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+/* tap target over the card */
+.gate__tap {
+  position: absolute;
+  z-index: 4;
+  left: 12.109%;
+  top: 12.24%;
+  width: 75.391%;
+  height: 71.615%;
+  border-radius: 46% 46% 6px 6px / 12% 12% 6px 6px;
+  cursor: pointer;
+  --focus: #F0DDAF;
+}
+.gate__tap:disabled { cursor: default; }
+/* the pulsing glow is the focus indicator; a square outline would not follow the arch */
+.gate__tap:focus-visible { outline: none; }
+/* soft gold glow inviting the tap */
+.gate--closed .gate__tap { animation: gate-glow 2.6s var(--ease-soft) infinite; }
+@keyframes gate-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(240, 221, 175, 0); }
+  50% { box-shadow: 0 0 40px 6px rgba(240, 221, 175, 0.28); }
+}
+
+/* ── Skip ── */
+.gate__skip {
+  position: absolute;
+  z-index: 5;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  min-height: 40px;
+  padding: 0.4rem 1rem;
+  border: 1px solid rgba(240, 221, 175, 0.5);
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #F0DDAF;
+  background: rgba(7, 31, 26, 0.5);
+  --focus: #F0DDAF;
+}
+.gate__skip:hover { background: rgba(198, 166, 106, 0.25); }
+
+/* ── Reduced motion: the clasp and doors fade instead of moving ── */
+@media (prefers-reduced-motion: reduce) {
+  .gate__door { transition: opacity 0.5s; }
+  .gate--opening .gate__door,
+  .gate--open .gate__door { transform: none; opacity: 0; }
+  .gate__clasp { transition: opacity 0.5s; }
+  .gate--closed .gate__clasp,
+  .gate--unclasp .gate__clasp,
+  .gate--opening .gate__clasp,
+  .gate--open .gate__clasp { animation: none; }
+  .gate--unclasp .gate__clasp,
+  .gate--opening .gate__clasp,
+  .gate--open .gate__clasp { opacity: 0; }
+  .gate--unclasp .gate__zip { animation: none; }
+  .gate--closed .gate__tap { animation: none; }
+}

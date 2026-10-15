@@ -1,0 +1,265 @@
+/* ===== Full-screen intro overlay ===== */
+.invitation-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* The overlay's backdrop sits on its own layer so it can fade instead of vanishing */
+.invitation-intro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #FAF7F2 url('/backg.webp') center top / cover no-repeat;
+  transition: opacity 0.9s ease;
+}
+
+/* 4: the page's card now sits exactly under this one; fade the backdrop out, keep the card */
+.invitation-intro[data-stage='4'] {
+  pointer-events: none;
+}
+
+.invitation-intro[data-stage='4']::before {
+  opacity: 0;
+}
+
+/* ===== Envelope ===== */
+.envelope-scene {
+  position: relative;
+  width: min(86vw, 46svh, 400px);
+  aspect-ratio: 9 / 16;
+  /* keep one composited layer so the zoom never re-rasterises mid-handoff */
+  will-change: transform;
+}
+
+/* Inside of the envelope, seen once the doors open */
+.envelope-shell {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #f6f0e8, #ede4da);
+  box-shadow: 0 28px 70px rgba(56, 35, 80, 0.2), inset 0 0 40px rgba(56, 35, 80, 0.12);
+  transition: opacity 0.9s ease;
+}
+
+.envelope-letter {
+  position: absolute;
+  inset: 9%;
+  z-index: 1;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(56, 35, 80, 0.15);
+  will-change: opacity;
+}
+
+/* Match the rounded page card it lands on (square on phones, like the page card) */
+@media (min-width: 601px) {
+  .envelope-letter {
+    border-radius: 12px;
+  }
+}
+
+/* Mini InvitationCover inside the envelope fills the letter */
+.mini-cover.final-invitation {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+/* Gatefold doors: each shows its half of x.png and swings open on its outer edge */
+.envelope-door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 50%;
+  transform: perspective(1600px) rotateY(0deg);
+  transform-style: preserve-3d;
+  transition: transform 1.3s cubic-bezier(0.45, 0, 0.25, 1);
+}
+
+.envelope-door-left {
+  left: 0;
+  transform-origin: left center;
+}
+
+.envelope-door-right {
+  right: 0;
+  transform-origin: right center;
+}
+
+.door-face {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.5s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.door-front {
+  background: url('/x.webp') no-repeat;
+  background-size: 200% 100%;
+}
+
+.envelope-door-left .door-front {
+  background-position: left center;
+  border-radius: 4px 0 0 4px;
+  box-shadow: inset -1px 0 0 rgba(56, 35, 80, 0.12);
+}
+
+.envelope-door-right .door-front {
+  background-position: right center;
+  border-radius: 0 4px 4px 0;
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.5), -3px 0 8px rgba(56, 35, 80, 0.12);
+}
+
+.door-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(140deg, #fdfbf7, #efe8e0);
+  box-shadow: inset 0 0 30px rgba(56, 35, 80, 0.08);
+}
+
+/* ===== Ribbon + bow ===== */
+.envelope-ribbon-clip {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.envelope-ribbon {
+  position: absolute;
+  top: 50%;
+  width: 50.5%;
+  /* same thickness as the band drawn in bow.png so the bow sits exactly on the ribbon */
+  height: 4.55%;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, #6f4f8e 0%, #9a7bb9 10%, #d6c1ea 38%, #c2a6dc 55%, #9676b5 85%, #6a4a89 100%);
+  box-shadow: 0 2px 6px rgba(56, 35, 80, 0.28);
+  transition: transform 0.85s cubic-bezier(0.6, 0, 0.4, 1) 0.15s, opacity 0.35s ease 0.7s;
+}
+
+.envelope-ribbon-left {
+  left: 0;
+}
+
+.envelope-ribbon-right {
+  right: 0;
+}
+
+.bow-trigger {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  width: 50%;
+  padding: 0;
+  line-height: 0;
+  /* band centre in bow.png is at 49.7% of its height */
+  transform: translate(-50%, -49.7%);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  animation: bow-breathe 2.4s ease-in-out infinite;
+}
+
+.bow-trigger:disabled {
+  cursor: default;
+}
+
+.bow-trigger:focus-visible {
+  outline: 2px solid #9C84B3;
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+
+.bow-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 10px rgba(56, 35, 80, 0.25));
+}
+
+@keyframes bow-breathe {
+  0%, 100% { transform: translate(-50%, -49.7%) scale(1); }
+  50% { transform: translate(-50%, -49.7%) scale(1.035); }
+}
+
+/* Untie: the bow lifts a little, then drops and fades */
+@keyframes bow-untie {
+  0% { transform: translate(-50%, -49.7%) scale(1) rotate(0deg); opacity: 1; }
+  28% { transform: translate(-50%, -54%) scale(1.07) rotate(2deg); opacity: 1; }
+  100% { transform: translate(-50%, 45%) scale(0.72) rotate(-12deg); opacity: 0; }
+}
+
+/* ===== Stages ===== */
+
+/* 1: bow drops away, ribbon halves slide out */
+.invitation-intro:not([data-stage='0']) .bow-trigger {
+  animation: bow-untie 1s cubic-bezier(0.45, 0, 0.7, 0.3) forwards;
+  pointer-events: none;
+}
+
+.invitation-intro:not([data-stage='0']) .envelope-ribbon-left {
+  transform: translate(-102%, -50%);
+  opacity: 0;
+}
+
+.invitation-intro:not([data-stage='0']) .envelope-ribbon-right {
+  transform: translate(102%, -50%);
+  opacity: 0;
+}
+
+/* 2: left door opens, then the right one */
+.invitation-intro[data-stage='2'] .envelope-door-left,
+.invitation-intro[data-stage='3'] .envelope-door-left,
+.invitation-intro[data-stage='4'] .envelope-door-left {
+  transform: perspective(1600px) rotateY(-165deg);
+}
+
+.invitation-intro[data-stage='2'] .envelope-door-right,
+.invitation-intro[data-stage='3'] .envelope-door-right,
+.invitation-intro[data-stage='4'] .envelope-door-right {
+  transform: perspective(1600px) rotateY(165deg);
+  transition-delay: 0.4s;
+}
+
+/* 3: envelope fades while the card zooms onto the page */
+.invitation-intro[data-stage='3'] .door-face,
+.invitation-intro[data-stage='4'] .door-face,
+.invitation-intro[data-stage='3'] .envelope-shell,
+.invitation-intro[data-stage='4'] .envelope-shell {
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+.invitation-intro[data-stage='3'] .envelope-letter {
+  box-shadow: none;
+  transition: box-shadow 1.2s ease;
+}
+
+.invitation-intro[data-stage='4'] .envelope-letter {
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .envelope-door,
+  .door-face,
+  .envelope-ribbon,
+  .envelope-shell,
+  .envelope-letter,
+  .invitation-intro {
+    transition-duration: 0.01ms !important;
+  }
+
+  .bow-trigger {
+    animation-duration: 0.01ms !important;
+  }
+}

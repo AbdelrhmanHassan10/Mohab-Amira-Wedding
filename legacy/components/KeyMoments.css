@@ -1,0 +1,191 @@
+/* ═══════════════════════════════════════════════════════
+   KEY MOMENTS — Event cards on ivory background
+   ═══════════════════════════════════════════════════════ */
+
+.moments {
+  position: relative;
+  padding: var(--section-py) var(--section-px);
+  padding-top: calc(var(--section-py) + 2rem);
+  background: var(--ivory);
+  z-index: 1;
+}
+
+.moments-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.moments-header {
+  text-align: center;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.moments-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 500;
+  color: var(--forest);
+  margin-top: 0.75rem;
+}
+
+/* ── Cards Grid ── */
+.moments-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ── Card ── */
+.moment-card {
+  position: relative;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+  transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+}
+
+.moment-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.1);
+}
+
+/* Image */
+.moment-card-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.moment-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.moment-card:hover .moment-card-image img {
+  transform: scale(1.05);
+}
+
+.moment-card-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13, 48, 41, 0.3) 0%, rgba(13, 48, 41, 0.05) 100%);
+}
+
+/* Body */
+.moment-card-body {
+  padding: 1.8rem;
+  text-align: center;
+}
+
+/* Icon */
+.moment-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--gold);
+  margin-bottom: 1rem;
+  margin-top: -40px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.moment-icon-wrap--gold {
+  background: var(--gold);
+  color: var(--forest);
+}
+
+/* Title */
+.moment-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--forest);
+  margin-bottom: 1.2rem;
+}
+
+/* Details */
+.moment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.moment-detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--charcoal);
+}
+
+.moment-detail svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.moment-area {
+  font-size: 0.75rem;
+  color: var(--sage-muted);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+
+/* Map button */
+.moment-map-btn {
+  margin-top: 0.5rem;
+  font-size: 0.65rem;
+}
+
+/* Featured card */
+.moment-card--featured {
+  border: 1.5px solid var(--gold);
+}
+
+/* Script decoration */
+.moment-script {
+  position: absolute;
+  bottom: 1rem;
+  right: -1rem;
+  font-family: var(--font-script);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  color: var(--gold);
+  line-height: 1.5;
+  transform: rotate(-5deg);
+  opacity: 0.4;
+  pointer-events: none;
+  text-align: right;
+}
+
+/* Botanical */
+.moments-botanical {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .moments-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+
+  .moment-script {
+    display: none;
+  }
+}

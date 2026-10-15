@@ -1,0 +1,153 @@
+{
+  "hero-couple": {
+    "widths": [
+      768,
+      1280,
+      1672
+    ],
+    "ratio": 1.7768
+  },
+  "hero-sunset": {
+    "widths": [
+      640,
+      1024
+    ],
+    "ratio": 1
+  },
+  "mosque-golden": {
+    "widths": [
+      640,
+      1024
+    ],
+    "ratio": 1
+  },
+  "couple-waterfront": {
+    "widths": [
+      480,
+      960
+    ],
+    "ratio": 0.6667
+  },
+  "couple-lanternlight": {
+    "widths": [
+      480,
+      960
+    ],
+    "ratio": 0.9375
+  },
+  "couple-garden": {
+    "widths": [
+      480,
+      960
+    ],
+    "ratio": 0.6667
+  },
+  "rings-gold": {
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "ratio": 1.5004
+  },
+  "bouquet-white": {
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "ratio": 1.5004
+  },
+  "bouquet-cascade": {
+    "widths": [
+      480,
+      960,
+      1400
+    ],
+    "ratio": 0.6667
+  },
+  "hands-rings": {
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "ratio": 1.5004
+  },
+  "aisle-flowers": {
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "ratio": 1.4981
+  },
+  "golden-hour-bouquet": {
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "ratio": 1.5004
+  },
+  "dusk-walk": {
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "ratio": 1.5004
+  },
+  "mosque-dusk": {
+    "widths": [
+      480,
+      960
+    ],
+    "ratio": 0.8
+  },
+  "reception-hall": {
+    "widths": [
+      480,
+      960
+    ],
+    "ratio": 1.5023
+  },
+  "mosque-exterior": {
+    "widths": [
+      640,
+      1280,
+      1537
+    ],
+    "ratio": 1.5024
+  },
+  "mosque-interior": {
+    "widths": [
+      480,
+      960
+    ],
+    "ratio": 0.6671
+  },
+  "gatefold": {
+    "widths": [
+      768,
+      1024
+    ],
+    "ratio": 0.6667
+  },
+  "childhood": {
+    "widths": [
+      480,
+      960,
+      1145
+    ],
+    "ratio": 0.8333
+  },
+  "garden-house": {
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "ratio": 1.4995
+  }
+}

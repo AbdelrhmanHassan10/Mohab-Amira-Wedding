@@ -1,0 +1,148 @@
+/* ═══════════════════════════════════════════════════════
+   OUR STORY — forest-green band, text left, four tilted photos
+   ═══════════════════════════════════════════════════════ */
+
+.story {
+  position: relative;
+  z-index: 1;
+  overflow-x: clip; /* branches at the edges; the waves above/below stay visible */
+  background:
+    /* glow stays clear of the top and bottom edges so the waves join without a seam */
+    radial-gradient(55% 40% at 68% 50%, rgba(30, 85, 72, 0.55) 0%, rgba(13, 48, 41, 0) 100%),
+    var(--forest);
+  padding-block: clamp(2rem, 4vw, 3rem);
+}
+
+/* ── Botanical sprigs ── */
+/* soft sage-gold branches, as in the reference (photos sit in front of them) */
+.story__sprig {
+  position: absolute;
+  z-index: 0;
+  color: #CFC69B;
+  opacity: 0.8;
+}
+.story__sprig--top-left { top: -4%; left: -12px; width: clamp(70px, 8vw, 118px); transform: rotate(24deg); opacity: 0.75; }
+.story__sprig--bottom-left { bottom: -2%; left: -6px; width: clamp(48px, 5vw, 74px); transform: rotate(14deg); opacity: 0.45; }
+.story__sprig--collage-left { left: 52%; bottom: 8%; width: clamp(70px, 7.6vw, 112px); transform: rotate(-28deg); }
+.story__sprig--collage-top { right: 22%; top: 4%; width: clamp(48px, 5vw, 74px); transform: rotate(38deg); opacity: 0.75; }
+.story__sprig--collage-right { right: clamp(-10px, 0.5vw, 10px); bottom: 4%; width: clamp(64px, 6.6vw, 98px); transform: rotate(16deg); }
+
+.story__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.story__text .eyebrow { color: var(--on-dark-soft); letter-spacing: 0.34em; }
+
+.story__title {
+  margin-top: 0.7rem;
+  font-size: clamp(2.1rem, 3.6vw, 3rem);
+  font-weight: 500;
+  line-height: 1.12;
+  color: var(--ivory);
+}
+
+.story__lead,
+.story__more p {
+  max-width: 21.5rem;
+  margin-top: 1.4rem;
+  color: var(--on-dark-soft);
+  font-size: var(--text-base);
+  line-height: 1.75;
+}
+.story__more { overflow: hidden; }
+.story__more p { margin-top: 1rem; }
+
+.story__btn {
+  margin-top: 1.8rem;
+  min-height: 46px;
+  padding-inline: 1.8rem 1.6rem;
+}
+.story__btn svg.is-open { transform: rotate(45deg); }
+.story__btn:hover:not(:disabled) svg { transform: translate(2px, -2px); }
+.story__btn:hover:not(:disabled) svg.is-open { transform: rotate(45deg); }
+
+/* ── Portrait: a vintage print on ivory paper, a second print behind it, gold tape on top ── */
+.story__portrait {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 380px);
+  margin: 2.5rem 0 2rem;
+}
+
+.story__portrait-frame {
+  position: relative;
+  z-index: 1;
+  padding: 14px 14px 0;
+  background: #FBF7EE;
+  border-radius: 6px;
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.75), 0 2px 6px rgba(0, 0, 0, 0.2);
+  transform: rotate(-2.5deg);
+  transition: transform 0.8s var(--ease-soft);
+}
+.story__portrait:hover .story__portrait-frame { transform: rotate(0deg) translateY(-4px); }
+
+.story__portrait-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 4.4;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/* the blank print peeking out behind */
+.story__print-back {
+  position: absolute;
+  inset: 10px -6px 18px 6px;
+  background: rgba(239, 232, 218, 0.9);
+  border-radius: 6px;
+  box-shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.7);
+  transform: rotate(4deg);
+}
+
+/* translucent gold tape holding the print */
+.story__tape {
+  position: absolute;
+  z-index: 2;
+  top: -14px;
+  left: 50%;
+  width: 110px;
+  height: 30px;
+  background: linear-gradient(180deg, rgba(220, 199, 156, 0.85), rgba(198, 166, 106, 0.75));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  transform: translateX(-50%) rotate(-4deg);
+  clip-path: polygon(3% 0, 97% 4%, 100% 50%, 96% 100%, 2% 96%, 0 48%);
+}
+
+/* caption written on the paper under the photo */
+.story__caption {
+  padding: 0.7rem 0 0.95rem;
+  font-family: var(--font-script);
+  font-size: 1.85rem;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--forest);
+}
+
+/* ── Tablet: text above, the mosaic below ── */
+@media (max-width: 960px) {
+  .story__inner { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .story__text { text-align: center; }
+  .story__lead, .story__more p { margin-inline: auto; max-width: 30rem; }
+  .story__sprig--collage-left,
+  .story__sprig--collage-top { display: none; }
+  .story__sprig--top-left { width: 76px; }
+}
+
+/* ── Mobile: tall couple photo, two stacked, sunset walk full width ── */
+@media (max-width: 600px) {
+  .story__portrait { width: min(80%, 320px); }
+  .story__portrait-frame { padding: 10px 10px 0; }
+  .story__caption { font-size: 1.6rem; padding: 0.55rem 0 0.8rem; }
+  .story__sprig--collage-right { display: none; }
+  .story__sprig--top-left { width: 58px; top: -2%; opacity: 0.6; }
+  .story__sprig--bottom-left { display: none; }
+}

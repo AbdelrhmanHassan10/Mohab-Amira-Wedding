@@ -1,0 +1,255 @@
+/* ═══════════════════════════════════════════════════════
+   RSVP — deep green, warm and simple; flows into the footer
+   ═══════════════════════════════════════════════════════ */
+
+.rsvp {
+  position: relative;
+  z-index: 1;
+  overflow-x: clip; /* side sprays may extend past the screen edge */
+  background:
+    /* glow fades to plain forest before the edges, so the wave above blends in seamlessly */
+    radial-gradient(62% 38% at 50% 46%, rgba(26, 74, 63, 0.75) 0%, rgba(13, 48, 41, 0) 100%),
+    var(--forest);
+  padding-block: clamp(3rem, 6vw, 5rem) clamp(3.5rem, 7vw, 5.5rem);
+}
+
+/* ── Florals ── */
+.floral { pointer-events: none; overflow: visible; --petal-bg: #133A31; }
+.floral__petal { fill: var(--petal-bg); }
+.floral__flower { color: var(--gold); }
+.floral__leaf { color: #9FB39B; }
+
+/* large faint sprays at the section edges */
+.rsvp__bloom {
+  position: absolute;
+  z-index: 0;
+  width: clamp(220px, 24vw, 360px);
+  opacity: 0.32;
+}
+.rsvp__bloom--left { left: -4%; bottom: 4%; transform: rotate(-8deg); }
+.rsvp__bloom--right { right: -4%; top: 6%; transform: scale(-1, -1) rotate(-8deg); }
+
+/* ── Invitation card ── */
+.rsvp__card {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  max-width: 44rem;
+  margin-inline: auto;
+  padding: clamp(2.75rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4.25rem) clamp(2.5rem, 4.5vw, 3.5rem);
+  text-align: center;
+  border-radius: 36px;
+  border: 1px solid rgba(198, 166, 106, 0.45);
+  background:
+    radial-gradient(90% 70% at 50% 0%, rgba(198, 166, 106, 0.1), rgba(198, 166, 106, 0) 70%),
+    linear-gradient(180deg, rgba(248, 244, 235, 0.06), rgba(248, 244, 235, 0.025));
+  box-shadow: 0 40px 80px -50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(248, 244, 235, 0.06);
+}
+
+/* second, finer frame inside the card */
+.rsvp__frame {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(198, 166, 106, 0.22);
+  border-radius: 26px;
+  pointer-events: none;
+}
+
+/* rose bouquets on the top corners: the big rose sits on the corner,
+   stems run along the top and side edges (the art is flipped to face inward) */
+.rsvp__corner {
+  position: absolute;
+  z-index: 2;
+  top: -30px;
+  width: clamp(170px, 17vw, 230px);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+}
+.rsvp__corner--left { left: -28px; transform: scaleY(-1); }
+.rsvp__corner--right { right: -28px; transform: scale(-1, -1); }
+
+
+.rsvp__card > :not(.rsvp__corner):not(.rsvp__frame) { position: relative; z-index: 1; }
+
+.rsvp__emblem {
+  width: 64px;
+  margin-bottom: 0.2rem;
+}
+
+.rsvp__title { font-size: clamp(2.2rem, 4.4vw, 3.2rem); color: var(--ivory); }
+.rsvp__sub { color: var(--on-dark-soft); }
+
+.rsvp__form,
+.rsvp__done {
+  width: 100%;
+  margin-top: 1.4rem;
+}
+
+.rsvp__form {
+  display: grid;
+  gap: 1.1rem;
+  text-align: left;
+}
+
+.rsvp__field { display: grid; gap: 0.4rem; }
+.rsvp__field label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.rsvp__field label span {
+  letter-spacing: 0.05em;
+  text-transform: none;
+  font-weight: 500;
+  color: var(--on-dark-soft);
+}
+
+.rsvp__field input,
+.rsvp__field textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(198, 166, 106, 0.3);
+  border-radius: 14px;
+  background: rgba(8, 30, 25, 0.35);
+  color: var(--ivory);
+  font-size: 1rem; /* 16px avoids iOS zoom on focus */
+  resize: none;
+  transition: border-color var(--dur-fast), background-color var(--dur-fast);
+}
+.rsvp__field textarea { min-height: 76px; }
+.rsvp__field input::placeholder,
+.rsvp__field textarea::placeholder { color: rgba(248, 244, 235, 0.45); }
+.rsvp__field input:focus,
+.rsvp__field textarea:focus { border-color: var(--gold); background: rgba(8, 30, 25, 0.5); box-shadow: 0 0 0 4px rgba(198, 166, 106, 0.12); }
+.rsvp__field input:focus-visible,
+.rsvp__field textarea:focus-visible { outline-offset: 1px; }
+.rsvp__field input[aria-invalid='true'] { border-color: #E8B4A0; }
+.rsvp__field input:disabled,
+.rsvp__field textarea:disabled { opacity: 0.6; }
+
+.rsvp__field-error {
+  font-size: var(--text-sm);
+  color: #F2C9B8;
+}
+
+.rsvp__choices {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+.rsvp__choice { width: 100%; min-height: 54px; padding-inline: 1rem; }
+.rsvp__choice:hover:not(:disabled) svg { transform: none; }
+
+.rsvp__error:empty { display: none; }
+.rsvp__error {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(232, 180, 160, 0.5);
+  border-radius: 12px;
+  background: rgba(232, 180, 160, 0.1);
+  color: #F6D9CC;
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+/* ── Confirmation ── */
+.rsvp__done {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  padding: clamp(1.5rem, 4vw, 2.2rem);
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius-lg);
+  background: rgba(248, 244, 235, 0.04);
+  color: var(--on-dark-soft);
+}
+.rsvp__done:focus { outline: none; }
+.rsvp__done-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--forest);
+}
+.rsvp__done-icon svg { width: 22px; height: 22px; }
+.rsvp__done-title { font-size: 1.9rem; color: var(--ivory); margin-top: 0.3rem; }
+.rsvp__done-meta { font-size: var(--text-sm); }
+.rsvp__done-meta strong { color: var(--ivory); font-weight: 600; }
+
+.rsvp__again {
+  min-height: 44px;
+  margin-top: 0.4rem;
+  font-size: var(--text-sm);
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(198, 166, 106, 0.45);
+  text-underline-offset: 4px;
+}
+.rsvp__again:hover { color: var(--gold-soft); }
+
+@media (max-width: 760px) {
+  .rsvp__corner { width: 150px; top: -20px; }
+  .rsvp__corner--left { left: -18px; }
+  .rsvp__corner--right { right: -18px; }
+  .rsvp__bloom { width: 200px; opacity: 0.2; }
+  .rsvp__bloom--left { left: -60px; bottom: 1%; }
+  .rsvp__bloom--right { right: -60px; top: 2%; }
+}
+
+@media (max-width: 520px) {
+  .rsvp__card { border-radius: 28px; padding-inline: 1.25rem; }
+  .rsvp__frame { inset: 9px; border-radius: 20px; }
+  .rsvp__corner { width: 124px; top: -16px; }
+  .rsvp__corner--left { left: -14px; }
+  .rsvp__corner--right { right: -14px; }
+  .rsvp__emblem { width: 54px; }
+  .rsvp__choices { grid-template-columns: 1fr; }
+}
+
+/* ── Intro block (emblem → ornament) ── */
+.rsvp .floral { --petal-bg: #22423A; } /* matches the card tone so rose layers read cleanly */
+.rsvp__intro {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+}
+.rsvp__bouquet { display: none; }
+
+/* ── Desktop: title + bouquet on the left, form on the right ── */
+@media (min-width: 1100px) {
+  .rsvp__bloom { opacity: 0.18; }
+  .rsvp__card {
+    max-width: 66rem;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    column-gap: clamp(2.5rem, 4vw, 4rem);
+    padding: 4rem 4rem 3.5rem;
+    text-align: left;
+  }
+  .rsvp__intro {
+    align-self: stretch;
+    align-content: start;
+    justify-items: start;
+    padding: 1.5rem 2.5rem 12rem 0;
+    border-right: 1px solid rgba(198, 166, 106, 0.28);
+  }
+  .rsvp__intro .ornament { justify-content: flex-start; }
+  .rsvp__intro .ornament::before { display: none; }
+  .rsvp__title { font-size: clamp(2.6rem, 3.4vw, 3.3rem); line-height: 1.05; }
+  .rsvp__bouquet {
+    display: block;
+    position: absolute;
+    left: -2.5rem;
+    bottom: -2.5rem;
+    width: 185px;
+  }
+  .rsvp__corner--left { display: none; }
+  .rsvp__form, .rsvp__done { margin-top: 0; }
+}

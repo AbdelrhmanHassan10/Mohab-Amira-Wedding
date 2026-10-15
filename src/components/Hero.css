@@ -1,0 +1,253 @@
+/* ═══════════════════════════════════════════════════════
+   HERO — cinematic sunset photo, names on a soft ivory haze
+   ═══════════════════════════════════════════════════════ */
+
+.hero {
+  position: relative;
+  min-height: clamp(640px, 100svh, 940px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--ivory);
+  isolation: isolate;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 30%;
+  animation: hero-settle 2.4s var(--ease-soft) both;
+}
+
+@keyframes hero-settle {
+  from { transform: scale(1.06); opacity: 0.4; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Misty ivory light on the left so the names read like the reference sky */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg,
+      rgba(248, 244, 235, 0.94) 0%,
+      rgba(248, 244, 235, 0.86) 24%,
+      rgba(248, 244, 235, 0.52) 38%,
+      rgba(248, 244, 235, 0) 52%),
+    linear-gradient(0deg, rgba(248, 244, 235, 0.35) 0%, rgba(248, 244, 235, 0) 22%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-block: clamp(4.5rem, 9vh, 7rem) calc(var(--wave-h) + 3rem);
+}
+
+.hero__copy {
+  width: min(100%, 30rem);
+  text-align: center;
+  color: var(--forest);
+}
+
+.hero__eyebrow {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--forest);
+}
+
+.hero__names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.1rem;
+  font-weight: 500;
+  line-height: 0.92;
+}
+
+.hero__name {
+  font-family: var(--font-display);
+  font-size: clamp(2.9rem, 6.2vw, 5.4rem);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  /* optical centering: letter-spacing adds trailing space */
+  padding-left: 0.05em;
+}
+
+.hero__and {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+  line-height: 0.8;
+  color: var(--gold-text);
+  margin: 0.05em 0 0.08em;
+}
+
+.hero__lede {
+  max-width: 22rem;
+  margin: 1.4rem auto 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.hero__ornament { margin-top: 1.2rem; }
+
+.hero__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+  text-align: left;
+}
+
+.hero__date-icon {
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+  color: var(--forest);
+  border: 1px solid var(--line-light);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.hero__date time {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--forest);
+}
+
+.hero__date small {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+
+.hero__cta { margin-top: 1.8rem; }
+
+.hero__script {
+  position: relative;
+  margin-top: -2.75rem; /* sits in the sky above the couple */
+  font-family: var(--font-script);
+  font-size: clamp(2.1rem, 3.4vw, 3rem);
+  line-height: 1.05;
+  color: var(--ivory);
+  text-shadow: 0 2px 18px rgba(13, 48, 41, 0.55);
+  transform: rotate(-6deg);
+  text-align: left;
+}
+.hero__script span { padding-left: 1.2em; }
+.hero__script svg {
+  width: 18px;
+  height: 18px;
+  margin: 0.3rem 0 0 3.2em;
+  color: var(--gold-soft);
+}
+
+/* ── Tablet: keep the side-by-side composition, narrower copy ── */
+@media (max-width: 1024px) {
+  .hero__photo { object-position: 74% 30%; }
+  .hero__veil {
+    background:
+      linear-gradient(90deg,
+        rgba(248, 244, 235, 0.95) 0%,
+        rgba(248, 244, 235, 0.88) 34%,
+        rgba(248, 244, 235, 0.4) 50%,
+        rgba(248, 244, 235, 0) 62%);
+  }
+  .hero__copy { width: min(100%, 25rem); }
+  .hero__script { display: none; }
+}
+
+/* ── Mobile: full-screen photo, couple up top, invitation text
+      on a deep-green fade at the bottom (nothing covers the faces) ── */
+@media (max-width: 760px) {
+  .hero {
+    align-items: flex-end;
+    min-height: max(100svh, 640px);
+    background: var(--forest);
+  }
+
+  .hero__photo { object-position: 82% 18%; }
+
+  .hero__veil {
+    background:
+      linear-gradient(180deg,
+        rgba(13, 48, 41, 0.35) 0%,
+        rgba(13, 48, 41, 0) 14%,
+        rgba(13, 48, 41, 0) 34%,
+        rgba(13, 48, 41, 0.62) 50%,
+        rgba(13, 48, 41, 0.9) 64%,
+        rgba(13, 48, 41, 0.97) 100%);
+  }
+
+  .hero__inner {
+    justify-content: center;
+    padding-block: 0 calc(var(--wave-h) + 2.25rem);
+  }
+
+  .hero__copy { width: 100%; color: var(--ivory); }
+  .hero__eyebrow { color: rgba(248, 244, 235, 0.86); font-size: 0.68rem; }
+  .hero__names { margin-top: 0.7rem; }
+  .hero__name {
+    font-size: clamp(2.3rem, 11.4vw, 3.2rem);
+    color: var(--ivory);
+    text-shadow: 0 2px 24px rgba(13, 48, 41, 0.5);
+  }
+  .hero__and { font-size: clamp(2rem, 9.5vw, 2.6rem); color: var(--gold); }
+  .hero__lede {
+    max-width: 18rem;
+    margin-top: 0.8rem;
+    font-size: 1.05rem;
+    color: rgba(248, 244, 235, 0.8);
+  }
+  .hero__ornament { margin-top: 0.9rem; color: var(--gold); }
+
+  .hero__date { margin-top: 0.9rem; }
+  .hero__date-icon { color: var(--gold); border-color: rgba(198, 166, 106, 0.5); }
+  .hero__date time { color: var(--ivory); font-size: 1.3rem; }
+  .hero__date small { color: var(--gold); }
+
+  .hero__cta {
+    margin-top: 1.3rem;
+    background: var(--gold);
+    color: var(--forest);
+    box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.5);
+    --focus: var(--ivory);
+  }
+  .hero__cta:hover:not(:disabled) { background: var(--gold-soft); }
+}
+
+/* short phones: tighter stack so the faces stay clear */
+@media (max-width: 760px) and (max-height: 760px) {
+  .hero__lede { margin-top: 0.5rem; font-size: 1rem; }
+  .hero__name { font-size: clamp(2.1rem, 10.6vw, 2.8rem); }
+  .hero__ornament { margin-top: 0.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__photo { animation: none; }
+}
