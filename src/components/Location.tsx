@@ -1,7 +1,7 @@
 import React from 'react';
 import { m } from 'framer-motion';
 import Photo from './Photo';
-import { ArrowUpRightIcon, CalendarIcon, CheersIcon, PinIcon, RingsIcon, Sprig } from './Icons';
+import { ArrowUpRightIcon, CalendarIcon, CheersIcon, ClockIcon, PinIcon, RingsIcon, Sprig } from './Icons';
 import { CELEBRATION, CONTRACT, LOCATION, directionsUrl } from '../content/wedding';
 import { reveal } from '../motion';
 import './Location.css';
@@ -11,20 +11,25 @@ interface PlaceProps {
   event: string;
   venue: string;
   address: string;
-  when: React.ReactNode;
+  date: React.ReactNode;
+  time: string;
   mapUrl: string;
   /** shown when the link is only a search, not an exact pin */
   note?: string;
 }
 
-const Place: React.FC<PlaceProps> = ({ icon, event, venue, address, when, mapUrl, note }) => (
+const Place: React.FC<PlaceProps> = ({ icon, event, venue, address, date, time, mapUrl, note }) => (
   <li className="place">
     <span className="place__icon">{icon}</span>
     <div className="place__body">
       <span className="place__event">{event}</span>
       <h3 className="place__venue">{venue}</h3>
-      <p className="place__line"><PinIcon /> {address}</p>
-      <p className="place__line"><CalendarIcon /> {when}</p>
+      {/* one fact per line, the text wrapped in a span so it flows as a single block */}
+      <ul className="place__facts">
+        <li className="place__line"><PinIcon /><span>{address}</span></li>
+        <li className="place__line"><CalendarIcon /><span>{date}</span></li>
+        <li className="place__line"><ClockIcon /><span>{time}</span></li>
+      </ul>
       <a className="text-link place__link" href={mapUrl} target="_blank" rel="noopener noreferrer">
         <span>Get Directions</span>
         <ArrowUpRightIcon />
@@ -60,7 +65,8 @@ const Location: React.FC = () => (
             event={CONTRACT.title}
             venue={LOCATION.venue}
             address={LOCATION.address}
-            when={<><time dateTime={CONTRACT.dateTime}>{CONTRACT.date}</time> · {CONTRACT.time}</>}
+            date={<time dateTime={CONTRACT.dateTime}>{CONTRACT.date}</time>}
+            time={CONTRACT.time}
             mapUrl={directionsUrl()}
             note={LOCATION.mapUrl ? undefined : 'Opens a Google Maps search for the mosque.'}
           />
@@ -69,7 +75,8 @@ const Location: React.FC = () => (
             event={CELEBRATION.title}
             venue={CELEBRATION.venue}
             address={`${CELEBRATION.area}, Egypt`}
-            when={<><time dateTime={CELEBRATION.dateTime}>{CELEBRATION.date}</time> · {CELEBRATION.time ?? 'time to be confirmed'}</>}
+            date={<time dateTime={CELEBRATION.dateTime}>{CELEBRATION.date}</time>}
+            time={CELEBRATION.time ?? 'Time to be confirmed'}
             mapUrl={CELEBRATION.mapUrl}
           />
         </ul>
